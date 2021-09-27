@@ -1,2 +1,2 @@
 # Mirea-TiVPO
-Software Testing and Verification
+Файлы программ будут в папках с вашим именем
