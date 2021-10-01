@@ -34,19 +34,10 @@ public:
     void deleteLast(); //удалить справа
     void deleteByData(int data); //удалить по значению
     void deleteByDataAll(int data); //удалить по значению (все вхождения)
-    void findFront(int data); //найти слева-направо
-    void findLast(int data); //найти справа-налево
-    void findAll(int data); //найти все вхождения
     bool isEmpty(); //проверка на пустоту
     void eraseAll(); //удаление дека
     void printFront(); //вывести слева-направо
     void printLast(); //вывести справа-налево
-    void changeByData(int oldData, int newData); //изменить по значению
-    void changeByDataAll(int oldData, int newData); //изменить по значению (все вхождения)
-    void changeByIndexFront(int index, int newData); //изменить по позиции слева-направо
-    void changeByIndexLast(int index, int newData); //изменить по позиции справа-налево
-    void swapFront(int data1, int data2); //поменять два элемента слева-направо
-    void swapLast(int data1, int data2); //поменять два элемента справа-налево
 };
 
 bool deque::isEmpty()
@@ -124,7 +115,7 @@ void deque::insertBefore(int data, int i)
     else
     {
         node* curr = front; //иначе- идем по деку, пока не найдем нужный элемент
-        while (curr != NULL) 
+        while (curr != NULL)
         {
             if (curr->data == i)
                 break;
@@ -244,7 +235,6 @@ void deque::deleteByDataAll(int data)
             }
             if (curr == NULL) //если все удалено или ничего не найдено- выходим
             {
-                cout << "Функция выполнила свою работу\n";
                 return;
             }
 
@@ -259,127 +249,6 @@ void deque::deleteByDataAll(int data)
             curr = prev->next;
         }
     }
-}
-
-void deque::findFront(int data)
-{
-    node* curr = front; //ищем нужный элемент слева-направо
-    int i = 0;
-    while (curr != NULL)
-    {
-        if (curr->data == data)
-        {
-            cout << "Найден элемент под номером " << i << "\n"; //если нашли- выводим его с индексом
-            return;
-        }
-        curr = curr->next;
-        i++;
-    }
-    cout << "Элемент не найден\n"; //если не вышли из цикла раньше
-}
-
-void deque::findLast(int data)
-{
-    node* curr = last; //ищем нужный элемент справа-налево
-    int i = 0;
-    while (curr != NULL)
-    {
-        if (curr->data == data)
-        {
-            cout << "Найден элемент под номером " << i << "\n"; //если нашли- выводим его с индексом
-            return;
-        }
-        curr = curr->prev;
-        i++;
-    }
-    cout << "Элемент не найден\n"; //если не вышли из цикла раньше
-}
-
-void deque::findAll(int data)
-{
-    node* curr = front; //ищем нужные элементы
-    int i = 0;
-    while (curr != NULL)
-    {
-        if (curr->data == data)
-            i++; //инкрементируем счетчик
-        curr = curr->next;
-    }
-
-    if (i == 0) //если счетчик не изменился- элементов нет в деке
-        cout << "Элемент не найден\n";
-    else
-        cout << "Всего элементов " << data << " : " << i << '\n';
-}
-
-void deque::changeByData(int oldData, int newData)
-{
-    node* curr = front;
-    while (curr != NULL) //ищем нужный элемент
-    {
-        if (curr->data == oldData)
-        {
-            curr->data = newData; //при нахождении- выходим с заменой
-            cout << "Изменено\n";
-            return;
-        }
-        curr = curr->next;
-    }
-    cout << "Элемент не найден\n"; //если не вышли в цикле- элемента нет
-}
-
-void deque::changeByDataAll(int oldData, int newData)
-{
-    node* curr = front;
-    bool flag = false;
-    while (curr != NULL)  //ищем нужные элементы
-    {
-        if (curr->data == oldData) //при нахождении- заменяем и меняем значение флага
-        {
-            curr->data = newData;
-            flag = true;
-        }
-        curr = curr->next;
-    }
-
-    if (flag)
-        cout << "Изменены\n";
-    else //если флаг не изменен- элемент не был найден
-        cout << "Элемент не найден\n";
-}
-
-void deque::changeByIndexFront(int index, int newData)
-{
-    node* curr = front; //ищем нужный слева-направо
-    while (curr != NULL)
-    {
-        if (index == 0)
-        {
-            curr->data = newData; //при нахождении- меняем с выходом
-            cout << "Изменено\n";
-            return;
-        }
-        curr = curr->next;
-        index--;
-    }
-    cout << "Элемент не найден\n"; //если не вышли в цикле- нет элемента
-}
-
-void deque::changeByIndexLast(int index, int newData)
-{
-    node* curr = last; //ищем нужный слева-направо
-    while (curr != NULL)
-    {
-        if (index == 0)
-        {
-            curr->data = newData; //при нахождении- меняем с выходом
-            cout << "Изменено\n";
-            return;
-        }
-        curr = curr->prev;
-        index--;
-    }
-    cout << "Элемент не найден\n"; //если не вышли в цикле- нет элемента
 }
 
 void deque::printFront()
@@ -427,177 +296,8 @@ void deque::eraseAll()
             front = front->next;
             free(temp);
         }
+        cout << "Дек удален\n";
     }
-}
-
-void deque::swapFront(int data1, int data2)
-{
-    if (isEmpty()) //нет дека- выводим сообщение
-    {
-        cout << "Дека нет\n";
-        return;
-    }
-
-    if (data1 == data2) //введены одинаковые значения- выходим
-    {
-        cout << "Значения поменялись местами\n";
-        return;
-    }
-
-    node* curr1 = front; //ищем нужный первый
-    while (curr1->data != data1 && curr1 != NULL)
-        curr1 = curr1->next;
-
-    node* curr2 = front; //и второй
-    while (curr2->data != data2 && curr2 != NULL)
-        curr2 = curr2->next;
-
-    if (curr1 == NULL || curr2 == NULL) //если хотя бы один не найден- выходим из функции
-    {
-        cout << "Не найдено\n";
-        return;
-    }
-
-    if (curr1->prev == NULL && curr2->next == NULL) //рассматриваем случай при обмене первого и последнего элемента
-    {
-        (curr1->next)->prev = curr2;
-        (curr2->prev)->next = curr1;
-        curr2->next = curr1->next;
-        curr1->prev = curr2->prev;
-        curr1->next = NULL;
-        curr2->prev = NULL;
-        last = curr1;
-        front = curr2;
-        cout << "Изменены\n";
-        return;
-    }
-
-    if (curr1->prev == NULL) //рассматриваем случай при обмене первого и другого элемента
-    {
-        (curr2->next)->prev = curr1;
-        (curr2->prev)->next = curr1;
-        (curr1->next)->prev = curr2;
-        node* temp = curr2->next;
-        curr2->next = curr1->next;
-        curr1->next = temp;
-        curr1->prev = curr2->prev;
-        curr2->prev = NULL;
-        front = curr2;
-        cout << "Изменены\n";
-        return;
-    }
-
-    if (curr2->next == NULL) //рассматриваем случай при обмене другого и последнего элемента
-    {
-        (curr2->prev)->next = curr1;
-        (curr1->prev)->next = curr2;
-        (curr1->next)->prev = curr2;
-        node* temp = curr2->prev;
-        curr2->prev = curr1->prev;
-        curr1->prev = temp;
-        curr2->next = curr1->next;
-        curr1->next = NULL;
-        last = curr1;
-        cout << "Изменены\n";
-        return;
-    }
-
-    (curr1->prev)->next = curr2; //и рассматриваем общий случай
-    (curr2->prev)->next = curr1;
-    (curr1->next)->prev = curr2;
-    (curr2->next)->prev = curr1;
-    node* temp = curr1->prev;
-    curr1->prev = curr2->prev;
-    curr2->prev = temp;
-    temp = curr1->next;
-    curr1->next = curr2->next;
-    curr2->next = temp;
-    cout << "Изменены\n";
-}
-
-void deque::swapLast(int data1, int data2)
-{
-    if (isEmpty()) //нет дека- выводим сообщение
-    {
-        cout << "Дека нет\n";
-        return;
-    }
-
-    if (data1 == data2) //введены одинаковые значения- выходим
-    {
-        cout << "Значения поменялись местами\n";
-        return;
-    }
-
-    node* curr1 = last; //ищем нужный первый
-    while (curr1->data != data1 && curr1 != NULL)
-        curr1 = curr1->prev;
-
-    node* curr2 = last; //и второй
-    while (curr2->data != data2 && curr2 != NULL)
-        curr2 = curr2->prev;
-
-    if (curr1 == NULL || curr2 == NULL) //если хотя бы один не найден- выходим из функции
-    {
-        cout << "Не найдено\n";
-        return;
-    }
-    
-    if (curr1->prev == NULL && curr2->next == NULL) //рассматриваем случай при обмене первого и последнего элемента
-    {
-        (curr1->next)->prev = curr2;
-        (curr2->prev)->next = curr1;
-        curr2->next = curr1->next;
-        curr1->prev = curr2->prev;
-        curr1->next = NULL;
-        curr2->prev = NULL;
-        last = curr1;
-        front = curr2;
-        cout << "Изменены\n";
-        return;
-    }
-
-    if (curr1->prev == NULL) //рассматриваем случай при обмене первого и другого элемента
-    {
-        (curr2->next)->prev = curr1;
-        (curr2->prev)->next = curr1;
-        (curr1->next)->prev = curr2;
-        node* temp = curr2->next;
-        curr2->next = curr1->next;
-        curr1->next = temp;
-        curr1->prev = curr2->prev;
-        curr2->prev = NULL;
-        front = curr2;
-        cout << "Изменены\n";
-        return;
-    }
-
-    if (curr2->next == NULL)  //рассматриваем случай при обмене другого и последнего элемента
-    {
-        (curr2->prev)->next = curr1;
-        (curr1->prev)->next = curr2;
-        (curr1->next)->prev = curr2;
-        node* temp = curr2->prev;
-        curr2->prev = curr1->prev;
-        curr1->prev = temp;
-        curr2->next = curr1->next;
-        curr1->next = NULL;
-        last = curr1;
-        cout << "Изменены\n";
-        return;
-    }
-
-    (curr1->prev)->next = curr2; //и рассматриваем общий случай
-    (curr2->prev)->next = curr1;
-    (curr1->next)->prev = curr2;
-    (curr2->next)->prev = curr1;
-    node* temp = curr1->prev;
-    curr1->prev = curr2->prev;
-    curr2->prev = temp;
-    temp = curr1->next;
-    curr1->next = curr2->next;
-    curr2->next = temp;
-    cout << "Изменены\n";
 }
 
 int main()
@@ -617,7 +317,7 @@ int main()
 
     while (command != 0)
     {
-        cout << "Выберите команду:\n1.Добавить элемент\n2.Удалить элемент\n3.Найти элемент\n4.Изменить элемент\n5.Поменять два элемента местами\n6.Вывести дек на экран\n7.Удалить дек\n0.Выход из программы\n";
+        cout << "Выберите команду:\n1.Добавить элемент\n2.Удалить элемент\n3.Вывести дек на экран\n4.Удалить дек\n0.Выход из программы\n";
         cin >> command;
         switch (command)
         {
@@ -632,7 +332,6 @@ int main()
                 cout << "Введите значение\n";
                 cin >> data;
                 deq.insertFront(data);
-                cout << '\n';
                 break;
             }
             case 2:
@@ -640,7 +339,6 @@ int main()
                 cout << "Введите значение\n";
                 cin >> data;
                 deq.insertLast(data);
-                cout << '\n';
                 break;
             }
             case 3:
@@ -654,7 +352,6 @@ int main()
                     cout << "Введите новое и старое значения элемента\n";
                     cin >> data >> num;
                     deq.insertAfter(data, num);
-                    cout << '\n';
                     break;
                 }
                 case 2:
@@ -662,7 +359,6 @@ int main()
                     cout << "Введите новое и старое значения элемента\n";
                     cin >> data >> num;
                     deq.insertBefore(data, num);
-                    cout << '\n';
                     break;
                 }
                 default:
@@ -671,6 +367,11 @@ int main()
                     break;
                 }
                 }
+                break;
+            }
+            default:
+            {
+                cout << "Некорректное значение- попробуйте снова\n";
                 break;
             }
             }
@@ -720,158 +421,15 @@ int main()
                 }
                 break;
             }
+            default:
+            {
+                cout << "Некорректное значение- попробуйте снова\n";
+                break;
+            }
             }
             break;
         }
         case 3:
-        {
-            cout << "Выберите подкоманду:\n1.Первое вхождение\n2.Все вхождения\n";
-            cin >> subcommand;
-            switch (subcommand)
-            {
-            case 1:
-            {
-                cout << "Выберите подкоманду:\n1.Проход слева-направо\n2.Проход справа-налево\n";
-                cin >> subcommand;
-                switch (subcommand)
-                {
-                case 1:
-                {
-                    cout << "Введите значение\n";
-                    cin >> data;
-                    deq.findFront(data);
-                    break;
-                }
-                case 2:
-                {
-                    cout << "Введите значение\n";
-                    cin >> data;
-                    deq.findLast(data);
-                    break;
-                }
-                default:
-                {
-                    cout << "Некорректное значение- попробуйте снова\n";
-                    break;
-                }
-                }
-                break;
-            }
-            case 2:
-            {
-                cout << "Введите значение\n";
-                cin >> data;
-                deq.findAll(data);
-                break;
-            }
-            default:
-            {
-                cout << "Некорректное значение- попробуйте снова\n";
-                break;
-            }
-            }
-            break;
-        }
-        case 4:
-        {
-            cout << "Выберите подкоманду:\n1.По значению\n2.По порядковому номеру\n";
-            cin >> subcommand;
-            switch (subcommand)
-            {
-            case 1:
-            {
-                cout << "Выберите подкоманду:\n1.Первое вхождение\n2.Все вхождения\n";
-                cin >> subcommand;
-                switch (subcommand)
-                {
-                case 1:
-                {
-                    cout << "Введите старое и новое значение элемента\n";
-                    cin >> data >> num;
-                    deq.changeByData(data, num);
-                    break;
-                }
-                case 2:
-                {
-                    cout << "Введите старое и новое значение элемента\n";
-                    cin >> data >> num;
-                    deq.changeByDataAll(data, num);
-                    break;
-                }
-                default:
-                {
-                    cout << "Некорректное значение- попробуйте снова\n";
-                    break;
-                }
-                }
-                break;
-            }
-            case 2:
-            {
-                cout << "Выберите подкоманду:\n1.Проход слева-направо\n2.Проход справа-налево\n";
-                cin >> subcommand;
-                switch (subcommand)
-                {
-                case 1:
-                {
-                    cout << "Введите индекс и новое значение\n";
-                    cin >> num >> data;
-                    deq.changeByIndexFront(num, data);
-                    break;
-                }
-                case 2:
-                {
-                    cout << "Введите индекс и новое значение\n";
-                    cin >> num >> data;
-                    deq.changeByIndexLast(num, data);
-                    break;
-                }
-                default:
-                {
-                    cout << "Некорректное значение- попробуйте снова\n";
-                    break;
-                }
-                }
-                break;
-            }
-            default:
-            {
-                cout << "Некорректное значение- попробуйте снова\n";
-                break;
-            }
-            break;
-            }
-            break;
-        }
-        case 5:
-        {
-            cout << "Выберите подкоманду:\n1.Проход слева-направо\n2.Проход справа-налево\n";
-            cin >> subcommand;
-            switch (subcommand)
-            {
-            case 1:
-            {
-                cout << "Введите два значения\n";
-                cin >> num >> data;
-                deq.swapFront(num, data);
-                break;
-            }
-            case 2:
-            {
-                cout << "Введите два значения\n";
-                cin >> num >> data;
-                deq.swapLast(num, data);
-                break;
-            }
-            default:
-            {
-                cout << "Некорректное значение- попробуйте снова\n";
-                break;
-            }
-            }
-            break;
-        }
-        case 6:
         {
             cout << "Выберите подкоманду:\n1.Проход слева-направо\n2.Проход справа-налево\n";
             cin >> subcommand;
@@ -895,10 +453,9 @@ int main()
             }
             break;
         }
-        case 7:
+        case 4:
         {
             deq.eraseAll();
-            cout << "Дек удален\n";
             break;
         }
         case 0:
@@ -907,7 +464,7 @@ int main()
             cin >> command;
             if (command == 0)
             {
-                cout << "Спасибо за внимание! Работа программы завершена\n";
+                cout << "Спасибо за внимание! Работа программы завершена";
                 return 0;
             }
             break;
@@ -922,6 +479,6 @@ int main()
     }
 }
 
-//1 2 3 4 5 6 7 8 9 10
+//1 2 3 4 5 6 7 8 9 1
 
 //1 1 2 1 3 1 4 1 5 1
