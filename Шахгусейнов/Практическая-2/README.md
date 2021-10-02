@@ -47,4 +47,4 @@
 
 ## Результаты тестирования
 
-<p align="center"><img src=""></p>
+<p align="center"><img src="https://github.com/Torusaynim/Mirea-TiVPO/blob/master/assets/images/DequeTesting.PNG"></p>
