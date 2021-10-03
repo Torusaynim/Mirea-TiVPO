@@ -4,6 +4,8 @@
 
 ### Пицца
 
+Более неформальная документация, с подробной документацией можно ознакомиться ниже или здесь  — [**PizzaDocs**](https://PizzaDocs.torusaynim.repl.co)
+
 Всего есть 4 вида пицц — `VeganPizza`, `CarnivoraPizza`, `PepperoniPizza`, `HawaiianPizza` — для создания любой пиццы в конструктор передаётся имя **(string)** и размер **(string)** пиццы, возможные размеры — *small / medium / large*
 
 Каждая пицца обладает набором ингредиентов, из которых она состоит и которые предопределяются видом выбранном пиццы. Чтобы раситать стоимость пиццы можно воспользоваться методом **price**, который возвращает численное значение — итоговую стоимость пиццы, основанную на её составе и размере
@@ -20,7 +22,7 @@
 
 ## Документация pizza.py
 
-### class Pizzaria.Pizza(name, size)
+### class Pizza.Pizza(name, size)
 Создает пиццу с атрибутами: название, размер, и полем для ингредиентов
 
 * **Параметры**
@@ -39,19 +41,19 @@
 
     Integer
 
-### class Pizzaria.VeganPizza(Pizza)
+### class Pizza.VeganPizza(Pizza)
 Создает вегетарианскую пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
 
-### class Pizzaria.CarnivoraPizza(Pizza)
+### class Pizza.CarnivoraPizza(Pizza)
 Создает мясную пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
 
-### class Pizzaria.PepperoniPizza(Pizza)
+### class Pizza.PepperoniPizza(Pizza)
 Создает пиццу пепперони, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
 
-### class Pizzaria.HawaiianPizza(Pizza)
+### class Pizza.HawaiianPizza(Pizza)
 Создает гавайскую пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
 
-### class Pizzaria.Client(name, address, has_card=True)
+### class Pizza.Client(name, address, has_card=True)
 Создает клиента с атрибутами: имя, адрес, наличие карты
 
 * **Параметры**
@@ -60,7 +62,7 @@
     * **address** (*String*) – Адрес доставки
     * **has_card** (*Boolean*) – Наличие карты
 
-### class Pizzaria.Order(client, products)
+### class Pizza.Order(client, products)
 
 * **Параметры**
  
