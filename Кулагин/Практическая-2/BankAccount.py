@@ -54,32 +54,33 @@ class User:
     :type age: Integer
     """
     bank = "Bank of Dojo"
+
     def __init__(self, first_name, last_name, age):
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
-        self.user_checking = BankAccount(0, 0.2)
-        self.user_savings = BankAccount(0, 0.2)
+        self.user_checking = BankAccount(10, 0.2)
+        self.user_savings = BankAccount(10, 0.4)
 
     def identify(self):
         """
         Отображает информацию о пользователе: имя и фамилию
 
         :return: Имя и фамилия клиента
-        :rtype: self
+        :rtype: String
         """
-        print(self.first_name +" "+ self.last_name)
-        return self
+        print(self.first_name + " " + self.last_name)
+        return self.first_name + " " + self.last_name
 
     def display_account_info(self):
         """
         Отображает информацию о балансе на счетах: баланс текущего счёта и сберегательного счёта
 
         :return: Баланс счетов
-        :rtype: self
+        :rtype: String
         """
         print(f"Checking Balance: ${self.user_checking.balance} Savings Balance:${self.user_savings.balance}")
-        return self
+        return f"Checking Balance: ${self.user_checking.balance} Savings Balance:${self.user_savings.balance}"
 
     def deposit(self, amount, type):
         """
@@ -91,15 +92,15 @@ class User:
         :param type: Тип счёта (текущий/сберегательный)
         :type type: String
 
-        :return: Увеличение баланса счёта на сумму amount в соответствии с типом счёта
-        :rtype: self
+        :return: Изменённое значение баланса счёта
+        :rtype: Integer
         """
         if type == "checking":
             self.user_checking.balance += amount
-            return self
+            return self.user_checking.balance
         elif type == "savings":
             self.user_savings.balance += amount
-            return self
+            return self.user_savings.balance
 
     def withdraw(self, amount, type):
         """
@@ -110,25 +111,25 @@ class User:
         :type amount: Integer
         :param type: Тип счёта (текущий/сберегательный)
         :type type: String
-        :return: Если пользователь может вывести средства, уменьшение значения свойства balance, иначе комиссия 5$
-        :rtype: self
+        :return: Изменённое значение баланса счёта
+        :rtype: Integer
         """
         if type == "checking":
-            if BankAccount.can_withdraw(self.user_checking.balance,amount):
+            if BankAccount.can_withdraw(self.user_checking.balance, amount):
                 self.user_checking.balance -= amount
-                return self
+                return self.user_checking.balance
             else:
                 print("Insufficient Funds: Charging a $5 Fee")
                 self.user_checking.balance -= 5
-                return self
+                return self.user_checking.balance
         elif type == "savings":
-            if BankAccount.can_withdraw(self.user_savings.balance,amount):
+            if BankAccount.can_withdraw(self.user_savings.balance, amount):
                 self.user_savings.balance -= amount
-                return self
+                return self.user_savings.balance
             else:
                 print("Insufficient Funds: Charging a $5 Fee")
                 self.user_savings.balance -= 5
-                return self
+                return self.user_savings.balance
 
     def yield_interest(self, type):
         """
@@ -137,19 +138,20 @@ class User:
 
         :param type: Тип банковского счёта (текущий/сберегательный)
         :type type: String
-        :return: Если баланс счёта положительный, то начисление процентов, иначе "Not interested".
-        :rtype: self
+        :return: Баланс после начисления процентов
+        :rtype: Integer
         """
         if type == "checking":
             if BankAccount.is_pos(self.user_checking.balance):
-                self.user_checking.balance= (self.user_checking.balance*self.user_checking.int_rate)+self.user_checking.balance
-                return self
+                self.user_checking.balance = (self.user_checking.balance*self.user_checking.int_rate)+self.user_checking.balance
+                return self.user_checking.balance
             else:
                 print("Not interested")
-                return self
+                return self.user_checking.balance
         elif type == "savings":
             if BankAccount.is_pos(self.user_savings.balance):
-                self.user_savings.balance= (self.user_savings.balance*self.user_savings.int_rate)+self.user_savings.balance
+                self.user_savings.balance = (self.user_savings.balance*self.user_savings.int_rate)+self.user_savings.balance
             else:
                 print("Not interested")
-            return self
+            return self.user_savings.balance
+        
