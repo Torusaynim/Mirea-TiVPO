@@ -19,10 +19,6 @@ struct Node //элемент ЛДС
 
 class Lds //ЛДС
 {
-    Node* front; //левый элемент
-    Node* rear; //правый элемент
-    int Size; //количество элементов
-
 private:
 
     int getSize() { //получить количество элементов
@@ -34,6 +30,9 @@ private:
     }
 
 public:
+    Node* front; //левый элемент
+    Node* rear; //правый элемент
+    int Size; //количество элементов
 
     Lds() //конструктор
     {
