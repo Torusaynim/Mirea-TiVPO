@@ -1,6 +1,11 @@
 class Pizza:
     """
-    Создает пиццу с атрибутами: название, размер, ингредиенты
+    Создает пиццу с атрибутами: название, размер, и полем для ингредиентов
+
+    :param name: Название пиццы
+    :type name: String
+    :param size: Размер пиццы ( small / medium / large )
+    :type size: String
     """
     def __init__(self, name, size):
         self.name = name
@@ -10,7 +15,10 @@ class Pizza:
     @property
     def price(self):
         """
-        Рассчитывает цену в зависимости от размера и ингредиентов
+        Рассчитывает и возвращает цену в зависимости от размера и ингредиентов
+
+        :return: Стоимость пиццы
+        :rtype: Integer
         """
         price_per_ingredient = 210
         size_price = {
@@ -23,7 +31,7 @@ class Pizza:
 
 class VeganPizza(Pizza):
     """
-    Создает веганскую пиццу, наследуя атрибуты от класса Pizza
+    Создает вегетарианскую пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
     """
     def __init__(self, name, size):
         super().__init__(name, size)
@@ -32,7 +40,7 @@ class VeganPizza(Pizza):
 
 class CarnivoraPizza(Pizza):
     """
-    Создает мясную пиццу, наследуя атрибуты от класса Pizza
+    Создает мясную пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
     """
     def __init__(self, name, size):
         super().__init__(name, size)
@@ -41,7 +49,7 @@ class CarnivoraPizza(Pizza):
 
 class PepperoniPizza(Pizza):
     """
-    Создает пиццу пепперони, наследуя атрибуты от класса Pizza
+    Создает пиццу пепперони, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
     """
     def __init__(self, name, size):
         super().__init__(name, size)
@@ -50,7 +58,7 @@ class PepperoniPizza(Pizza):
 
 class HawaiianPizza(Pizza):
     """
-    Создает гавайскую пиццу, наследуя атрибуты от класса Pizza
+    Создает гавайскую пиццу, наследуя атрибуты от класса Pizza, с атрибутами: название, размер
     """
     def __init__(self, name, size):
         super().__init__(name, size)
@@ -59,7 +67,14 @@ class HawaiianPizza(Pizza):
 
 class Client:
     """
-    Создает клиента с атрибутами имя, адрес, наличие карты заведения (булевая)
+    Создает клиента с атрибутами: имя, адрес, наличие карты
+
+    :param name: Имя клиента
+    :type name: String
+    :param address: Адрес доставки
+    :type address: String
+    :param has_card: Наличие карты
+    :type has_card: Boolean
     """
     def __init__(self, name, address, has_card=True):
         self.name = name
@@ -69,7 +84,12 @@ class Client:
 
 class Order:
     """
-    Создает заказ на основе класса Client и продуктов (список объектов Pizza)
+    Создает заказ, включающий в себя объект Client и спискок объектов Pizza
+
+    :param client: Объект клиента
+    :type client: Client
+    :param products: Список объектов заказанных пицц
+    :type products: Pizza
     """
     def __init__(self, client, products):
         self.client = client
@@ -78,8 +98,10 @@ class Order:
     @property
     def total_price(self):
         """
-        Рассчитывает общую стоимость заказа на основе атрибутов товаров
-        Если у клиента has_card, применяется скидка 10%
+        Рассчитывает и возвращает общую стоимость заказа. Если у клиента есть карта, применяется скидка 10%
+
+        :return: Общая стоимость заказа
+        :rtype: Integer
         """
         price = sum([product.price for product in self.products])
         if self.client.has_card:
@@ -89,8 +111,10 @@ class Order:
     @property
     def invoice(self):
         """
-        Строка в формате таблицы, содержащая все товары, связанные с этим заказом,
-        их цены, общая цена и информация о клиенте
+        Формирует и возвращает строку в формате таблицы, содержащую подробную информацию о заказе
+
+        :return: Сформированный счёт заказа
+        :rtype: String
         """
         result = '\n'.join([f'{product.name} - {product.price}' for product in self.products])
         result += f'\nThe total price is {self.total_price}! \nThe delivery will be in {self.client.address}!'
