@@ -199,3 +199,6 @@
 
     Integer
 
+## Результаты тестирования
+
+<p align="center"><img src="https://github.com/Torusaynim/Mirea-TiVPO/blob/master/assets/images/BankTesting.png"></p>
