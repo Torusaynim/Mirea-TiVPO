@@ -230,4 +230,7 @@
 
 * **Тип результата**
 
-    Integer
+    Integer  
+
+## Результаты тестирования  
+<p align="center"><img src="https://github.com/Torusaynim/Mirea-TiVPO/blob/master/assets/images/LDSTesting.png"></p>
