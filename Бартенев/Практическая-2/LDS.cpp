@@ -1,14 +1,13 @@
 #include <iostream>
 #include <string>
-#include <Windows.h>
 #include <vector>
 using namespace std;
 
-struct Node //элемент ЛДС
+struct Node //ГЅГ«ГҐГ¬ГҐГ­ГІ Г‹Г„Г‘
 {
-    int data; //информационное значение
-    Node* prev, * next; //указатели на предыыдущий и следующий
-    static Node* getnode(int data) //конструктор
+    int data; //ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГ®Г­Г­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ
+    Node* prev, * next; //ГіГЄГ Г§Г ГІГҐГ«ГЁ Г­Г  ГЇГ°ГҐГ¤Г»Г»Г¤ГіГ№ГЁГ© ГЁ Г±Г«ГҐГ¤ГіГѕГ№ГЁГ©
+    static Node* getnode(int data) //ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°
     {
         Node* newNode = (Node*)malloc(sizeof(Node));
         newNode->data = data;
@@ -17,39 +16,39 @@ struct Node //элемент ЛДС
     }
 };
 
-class Lds //ЛДС
+class Lds //Г‹Г„Г‘
 {
 private:
 
-    int getSize() { //получить количество элементов
+    int getSize() { //ГЇГ®Г«ГіГ·ГЁГІГј ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
         return Size;
     };;
 
-    bool isEmpty() { //проверка на пустоту
+    bool isEmpty() { //ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  ГЇГіГ±ГІГ®ГІГі
         return (front == NULL);
     }
 
 public:
-    Node* front; //левый элемент
-    Node* rear; //правый элемент
-    int Size; //количество элементов
+    Node* front; //Г«ГҐГўГ»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ
+    Node* rear; //ГЇГ°Г ГўГ»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ
+    int Size; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
 
-    Lds() //конструктор
+    Lds() //ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°
     {
         front = rear = NULL;
         Size = 0;
     }
 
-    int insertFront(int data) { //добавить слева
+    int insertFront(int data) { //Г¤Г®ГЎГ ГўГЁГІГј Г±Г«ГҐГўГ 
         Node* newNode = Node::getnode(data);
-        if (newNode == NULL) //при переполнении
+        if (newNode == NULL) //ГЇГ°ГЁ ГЇГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГЁ
         {
-            cout << "Переполнение" << endl;
+            cout << "ГЏГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГҐ" << endl;
             return 0;
         }
         else
         {
-            if (front == NULL) //если ЛДС пуст
+            if (front == NULL) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
                 rear = front = newNode;
             else
             {
@@ -58,21 +57,21 @@ public:
                 front = newNode;
             }
             Size++;
-            cout << "Элемент добавлен" << endl;
+            cout << "ГќГ«ГҐГ¬ГҐГ­ГІ Г¤Г®ГЎГ ГўГ«ГҐГ­" << endl;
             return 1;
         }
     };
 
-    int insertRear(int data, bool print) { //добавить справа
+    int insertRear(int data, bool print) { //Г¤Г®ГЎГ ГўГЁГІГј Г±ГЇГ°Г ГўГ 
         Node* newNode = Node::getnode(data);
-        if (newNode == NULL) //при переполнения
+        if (newNode == NULL) //ГЇГ°ГЁ ГЇГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГї
         {
-            cout << "Переполнение" << endl;
+            cout << "ГЏГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГҐ" << endl;
             return 0;
         }
         else
         {
-            if (rear == NULL) //если ЛДС пуст
+            if (rear == NULL) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
                 front = rear = newNode;
             else
             {
@@ -81,56 +80,66 @@ public:
                 rear = newNode;
             }
             Size++;
-            if (print) { cout << "Элемент добавлен" << endl; }
+            if (print) { cout << "ГќГ«ГҐГ¬ГҐГ­ГІ Г¤Г®ГЎГ ГўГ«ГҐГ­" << endl; }
             return 1;
         }
     };
 
-    int insert(int element, int data, bool after) { //вставить элемент в середину
+    int insert(int element, int data, bool after) { //ГўГ±ГІГ ГўГЁГІГј ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г±ГҐГ°ГҐГ¤ГЁГ­Гі
         Node* ptr = front;
         for (int i = 0; i < this->getSize(); i++) {
             if (ptr->data == element) {
-                if (after) { //если нужно вставить после
-                    Node* newNode = Node::getnode(data);
-                    if (newNode == NULL) //при переполнения
+                if (after) { //ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г® ГўГ±ГІГ ГўГЁГІГј ГЇГ®Г±Г«ГҐ
+                    if (i == this->getSize() - 1)
+                        this->insertRear(data, false);
+                    else
                     {
-                        cout << "Переполнение" << endl;
-                        return 0;
+                        Node* newNode = Node::getnode(data);
+                        if (newNode == NULL) //ГЇГ°ГЁ ГЇГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГї
+                        {
+                            cout << "ГЏГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГҐ" << endl;
+                            return 0;
+                        }
+                        Node* temp = ptr->next;
+                        ptr->next = newNode;
+                        newNode->prev = ptr;
+                        newNode->next = temp;
+                        temp->prev = newNode;
+                        Size++;
                     }
-                    Node* temp = ptr->next;
-                    ptr->next = newNode;
-                    newNode->prev = ptr;
-                    newNode->next = temp;
-                    temp->prev = newNode;
-                    Size++;
                 }
-                else { //если нужно вставить до
-                    Node* newNode = Node::getnode(data);
-                    if (newNode == NULL) //при переполнения
+                else { //ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г® ГўГ±ГІГ ГўГЁГІГј Г¤Г®
+                    if (i == 0)
+                        this->insertFront(data);
+                    else
                     {
-                        cout << "Переполнение" << endl;
-                        return 0;
+                        Node* newNode = Node::getnode(data);
+                        if (newNode == NULL) //ГЇГ°ГЁ ГЇГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГї
+                        {
+                            cout << "ГЏГҐГ°ГҐГЇГ®Г«Г­ГҐГ­ГЁГҐ" << endl;
+                            return 0;
+                        }
+                        Node* temp = ptr->prev;
+                        ptr->prev = newNode;
+                        newNode->prev = temp;
+                        newNode->next = ptr;
+                        temp->next = newNode;
+                        Size++;
                     }
-                    Node* temp = ptr->prev;
-                    ptr->prev = newNode;
-                    newNode->prev = temp;
-                    newNode->next = ptr;
-                    temp->next = newNode;
-                    Size++;
                 }
-                cout << "Элемент добавлен" << endl;
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІ Г¤Г®ГЎГ ГўГ«ГҐГ­" << endl;
                 return 1;
             }
             ptr = ptr->next;
         }
-        cout << "Элемент не найден" << endl;
+        cout << "ГќГ«ГҐГ¬ГҐГ­ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­" << endl;
         return -1;
     };
 
-    int deleteFront() { //удалить слева
-        if (isEmpty()) //если ЛДС пуст
+    int deleteFront() { //ГіГ¤Г Г«ГЁГІГј Г±Г«ГҐГўГ 
+        if (isEmpty()) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
         {
-            cout << "ЛДС пуст" << endl;
+            cout << "Г‹Г„Г‘ ГЇГіГ±ГІ" << endl;
             return 0;
         }
         else
@@ -143,15 +152,15 @@ public:
                 front->prev = NULL;
             free(temp);
             Size--;
-            cout << "Элемент удалён" << endl;
+            cout << "ГќГ«ГҐГ¬ГҐГ­ГІ ГіГ¤Г Г«ВёГ­" << endl;
             return 1;
         }
     };
 
-    int deleteRear() { //удалить справа
-        if (isEmpty()) //если ЛДС пуст
+    int deleteRear() { //ГіГ¤Г Г«ГЁГІГј Г±ГЇГ°Г ГўГ 
+        if (isEmpty()) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
         {
-            cout << "ЛДС пуст";
+            cout << "Г‹Г„Г‘ ГЇГіГ±ГІ";
             return 0;
         }
         else
@@ -164,15 +173,15 @@ public:
                 rear->next = NULL;
             free(temp);
             Size--;
-            cout << "Элемент удалён" << endl;
+            cout << "ГќГ«ГҐГ¬ГҐГ­ГІ ГіГ¤Г Г«ВёГ­" << endl;
             return 1;
         }
     };
 
-    int erase() { //удалить элементы ЛДС
-        if (isEmpty()) //если ЛДС пуст
+    int erase() { //ГіГ¤Г Г«ГЁГІГј ГЅГ«ГҐГ¬ГҐГ­ГІГ» Г‹Г„Г‘
+        if (isEmpty()) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
         {
-            cout << "ЛДС пуст" << endl;
+            cout << "Г‹Г„Г‘ ГЇГіГ±ГІ" << endl;
             return 0;
         }
         else
@@ -185,12 +194,12 @@ public:
                 free(temp);
             }
             Size = 0;
-            cout << "Элементы ЛДС удалены" << endl;
+            cout << "ГќГ«ГҐГ¬ГҐГ­ГІГ» Г‹Г„Г‘ ГіГ¤Г Г«ГҐГ­Г»" << endl;
             return 1;
         }
     };
 
-    vector<Node*> findAll(int data, bool out) { //найти все вхождения элемента
+    vector<Node*> findAll(int data, bool out) { //Г­Г Г©ГІГЁ ГўГ±ГҐ ГўГµГ®Г¦Г¤ГҐГ­ГЁГї ГЅГ«ГҐГ¬ГҐГ­ГІГ 
         vector<int> indexes;
         vector<Node*> vector_ptrs;
         Node* ptr = front;
@@ -201,38 +210,38 @@ public:
             }
             ptr = ptr->next;
         }
-        if (out) { //если нужно вывести вхождения
+        if (out) { //ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г® ГўГ»ГўГҐГ±ГІГЁ ГўГµГ®Г¦Г¤ГҐГ­ГЁГї
             if (this->isEmpty())
-                cout << "ЛДС пуст" << endl;
+                cout << "Г‹Г„Г‘ ГЇГіГ±ГІ" << endl;
             else if (indexes.size() == 0)
-                cout << "Элемент " << data << " не входит в ЛДС." << endl;
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІ " << data << " Г­ГҐ ГўГµГ®Г¤ГЁГІ Гў Г‹Г„Г‘." << endl;
             else if (indexes.size() == 1)
-                cout << "Элемент " << data << " находится на " << indexes[0] + 1 << " месте." << endl;
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІ " << data << " Г­Г ГµГ®Г¤ГЁГІГ±Гї Г­Г  " << indexes[0] + 1 << " Г¬ГҐГ±ГІГҐ." << endl;
             else 
             {
-                cout << "Элемент " << data << " встречается на ";
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІ " << data << " ГўГ±ГІГ°ГҐГ·Г ГҐГІГ±Гї Г­Г  ";
                 for (int i : indexes) {
                     cout << i + 1 << " ";
                 }
-                cout << "местах." << endl;
+                cout << "Г¬ГҐГ±ГІГ Гµ." << endl;
             }
         }
         return vector_ptrs;
     };
 
-    int changeAll(int data, int new_data) { //заменить все вхождения элемента
+    int changeAll(int data, int new_data) { //Г§Г Г¬ГҐГ­ГЁГІГј ГўГ±ГҐ ГўГµГ®Г¦Г¤ГҐГ­ГЁГї ГЅГ«ГҐГ¬ГҐГ­ГІГ 
         vector<Node*> temp;
-        if (this->isEmpty()) //если ЛДС пуст
+        if (this->isEmpty()) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
         { 
-            cout << "ЛДС пуст" << endl;
+            cout << "Г‹Г„Г‘ ГЇГіГ±ГІ" << endl;
             return -1;
         }
         else
         {
             temp = findAll(data, false);
-            if (temp.size() == 0) //если нужного элемента нет в ЛДС
+            if (temp.size() == 0) //ГҐГ±Г«ГЁ Г­ГіГ¦Г­Г®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ  Г­ГҐГІ Гў Г‹Г„Г‘
             {
-                cout << "Элемент не найден";
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­";
                 return 0;
             }
             else
@@ -240,28 +249,28 @@ public:
                 for (Node* i : temp) {
                     i->data = new_data;
                 }
-                cout << "Элементы заменены" << endl;
+                cout << "ГќГ«ГҐГ¬ГҐГ­ГІГ» Г§Г Г¬ГҐГ­ГҐГ­Г»" << endl;
                 return 1;
             }
         }
     };
 
-    int print(bool straight) { //вывести ЛДС
-        if (isEmpty()) //если ЛДС пуст
+    int print(bool straight) { //ГўГ»ГўГҐГ±ГІГЁ Г‹Г„Г‘
+        if (isEmpty()) //ГҐГ±Г«ГЁ Г‹Г„Г‘ ГЇГіГ±ГІ
         {
-            cout << "ЛДС пуст" << endl;
+            cout << "Г‹Г„Г‘ ГЇГіГ±ГІ" << endl;
             return 0;
         }
         else
         {
-            if (straight) { //вывести слева-направо
+            if (straight) { //ГўГ»ГўГҐГ±ГІГЁ Г±Г«ГҐГўГ -Г­Г ГЇГ°Г ГўГ®
                 Node* temp = front;
                 for (int i = 0; i < this->getSize(); i++) {
                     cout << temp->data << "  ";
                     temp = temp->next;
                 }
             }
-            else { //вывести справа-налево
+            else { //ГўГ»ГўГҐГ±ГІГЁ Г±ГЇГ°Г ГўГ -Г­Г Г«ГҐГўГ®
                 Node* temp = rear;
                 for (int i = 0; i < this->getSize(); i++) {
                     cout << temp->data << "  ";
