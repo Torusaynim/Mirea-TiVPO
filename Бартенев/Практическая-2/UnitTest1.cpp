@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../test.cpp"
+#include "LDS.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -143,7 +143,7 @@ namespace UnitTest1
 		TEST_METHOD(Testinsert1)
 		{
 			Lds lds;
-			Assert::AreEqual(lds.insert(1, 1, 1) , -1);
+			Assert::AreEqual(lds.insert(1, 1, 1), -1);
 		}
 		TEST_METHOD(Testinsert2)
 		{
@@ -170,7 +170,7 @@ namespace UnitTest1
 			Assert::AreEqual(lds.front->next->prev->data, 66);
 
 			Assert::AreEqual(lds.front->data, 66);
-			Assert::AreEqual(lds.front->next->data, 101); 
+			Assert::AreEqual(lds.front->next->data, 101);
 		}
 		TEST_METHOD(Testinsert4)
 		{
@@ -178,10 +178,10 @@ namespace UnitTest1
 			lds.insertRear(101, 0);
 			lds.insert(101, 1, 0);
 
-			Assert::AreEqual(lds.rear->data, 1);
-			Assert::AreEqual(lds.rear->prev->data, 101);
-			Assert::AreEqual(lds.front->data, 101);
-			Assert::AreEqual(lds.front->next->data, 1);
+			Assert::AreEqual(lds.rear->data, 101);
+			Assert::AreEqual(lds.rear->prev->data, 1);
+			Assert::AreEqual(lds.front->data, 1);
+			Assert::AreEqual(lds.front->next->data, 101);
 		}
 	};
 
