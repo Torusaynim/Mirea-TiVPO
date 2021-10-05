@@ -1,5 +1,4 @@
 import time
-import os
 from inputimeout import inputimeout, TimeoutOccurred
 
 
@@ -137,6 +136,5 @@ class Game:
 
 if __name__ == '__main__':
     players = int(input('Введите количество игроков: '))
-    os.system("pause")
     game = Game(players)
     game.start_game()
