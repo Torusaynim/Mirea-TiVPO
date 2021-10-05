@@ -1,7 +1,6 @@
 import time
-
-from CitiesGame import CitiesDict, Watch, Game
 import pytest
+from CitiesGame import CitiesDict, Watch, Game
 
 
 @pytest.fixture
@@ -88,14 +87,15 @@ def test_get_turn_time(watch):
     """
 
     """
-    # assert watch.get_turn_time() == 0
-    # time.sleep(1)
-    # assert watch.get_turn_time() == 1
-    # time.sleep(0.5)
-    # assert watch.get_turn_time() == 0.5
-    # time.sleep(1)
-    # assert watch.get_turn_time() == 1
-    # assert watch.get_turn_time() == 0
+    watch.start_stopwatch()
+    assert watch.get_turn_time() == 0
+    time.sleep(1)
+    assert watch.get_turn_time() == 1
+    time.sleep(0.5)
+    assert watch.get_turn_time() == 0.5
+    time.sleep(1)
+    assert watch.get_turn_time() == 1
+    assert watch.get_turn_time() == 0
 
 
 def test_turn_time(watch):
@@ -117,15 +117,15 @@ def test_average_turn_time(watch):
     """
 
     """
-    assert watch.average_turn_time == [-1, -1]
+    assert watch.average_turn_times == [0, 0]
     watch.next_turn(5)
-    assert watch.average_turn_time == [5, -1]
+    assert watch.average_turn_times == [5, 0]
     watch.next_turn(6)
-    assert watch.average_turn_time == [5, 6]
+    assert watch.average_turn_times == [5, 6]
     watch.next_turn(7)
-    assert watch.average_turn_time == [6, 6]
+    assert watch.average_turn_times == [6, 6]
     watch.next_turn(8)
-    assert watch.average_turn_time == [6, 7]
+    assert watch.average_turn_times == [6, 7]
 
 
 def test_make_turn(game):
@@ -143,26 +143,50 @@ def test_check_turn(game):
     """
 
     """
-    assert game.check_turn('Стул') == -1
+    assert game.check_turn('Стул') == -2
     assert game.check_turn('Чаны') == 1
     assert game.check_turn('Нальчик') == 1
-    assert game.check_turn('Кукла') == -1
+    assert game.check_turn('Кукла') == -2
     assert game.check_turn('Казань') == 1
     assert game.check_turn('Нальчик') == 0
+    assert game.check_turn('Москва') == -1
 
 
-def test_get_current_player(game):
+def test_current_player(game):
     """
 
     """
-    assert game.get_current_player() == 0
+    assert game.currentPlayer == 0
     game.make_turn('Кабардинск')
-    assert game.get_current_player() == 1
+    assert game.currentPlayer == 1
     game.make_turn('Калуга')
-    assert game.get_current_player() == 0
+    assert game.currentPlayer == 0
     game.make_turn('Анталия')
-    assert game.get_current_player() == 1
+    assert game.currentPlayer == 1
     game.make_turn('Якутск')
-    assert game.get_current_player() == 0
+    assert game.currentPlayer == 0
     game.make_turn('Керчь')
-    assert game.get_current_player() == 1
+    assert game.currentPlayer == 1
+
+
+def test_get_results(game):
+    """
+
+    """
+    game.watch.start_stopwatch()
+    time.sleep(0.1)
+    game.make_turn('Кабардинск')
+    time.sleep(0.2)
+    game.make_turn('Калуга')
+    time.sleep(0.1)
+    game.make_turn('Анталия')
+    time.sleep(0.2)
+    game.make_turn('Якутск')
+    assert game.get_results() == [2, 0.1, 0.2]
+    time.sleep(0.3)
+    game.make_turn('Кардифф')
+    time.sleep(0.2)
+    game.make_turn('Фарго')
+    time.sleep(0.3)
+    game.make_turn('Очаков')
+    assert game.get_results() == [1, 0.2, 0.2]

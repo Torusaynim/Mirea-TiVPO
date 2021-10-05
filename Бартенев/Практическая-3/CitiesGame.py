@@ -1,4 +1,6 @@
 import time
+import os
+from inputimeout import inputimeout, TimeoutOccurred
 
 
 class CitiesDict:
@@ -38,7 +40,7 @@ class Watch:
         self.players = players
         self.turn_times = []
         self.turn = 0
-        self.start_time = time.perf_counter()
+        self.start_time = 0
 
     def next_turn(self, turn_time):
         self.turn += 1
@@ -50,15 +52,18 @@ class Watch:
         self.start_time = time.perf_counter()
         return turn_time
 
+    def start_stopwatch(self):
+        self.start_time = time.perf_counter()
+
     @property
     def turn_time(self):
         return 10 + self.turn / 10
 
     @property
-    def average_turn_time(self):
+    def average_turn_times(self):
         sum_time = []
         n = []
-        avg_time = []
+        avg_times = []
         for i in range(self.players):
             sum_time.append(0)
             n.append(0)
@@ -67,10 +72,10 @@ class Watch:
             n[i % self.players] += 1
         for i in range(0, 2):
             if n[i] == 0:
-                avg_time.append(-1)
+                avg_times.append(0)
             else:
-                avg_time.append(round(sum_time[i] / n[i], 1))
-        return avg_time
+                avg_times.append(round(sum_time[i] / n[i], 1))
+        return avg_times
 
 
 class Game:
@@ -83,14 +88,20 @@ class Game:
 
     def check_turn(self, city):
         if self.dict.is_city(city):
-            if self.dict.is_available(city):
-                if self.lastChar == '' or self.lastChar == city[0].upper():
+            if self.lastChar == '' or self.lastChar == city[0].upper():
+                if self.dict.is_available(city):
                     self.make_turn(city)
+                    print('Принято')
                     return 1
+                else:
+                    print('Этот город уже называли')
+                    return 0
             else:
-                return 0
+                print('Начинается на неправильную букву')
+                return -1
         else:
-            return -1
+            print('Это не город')
+            return -2
 
     def make_turn(self, city):
         self.dict.select_city(city)
@@ -100,5 +111,32 @@ class Game:
         self.watch.next_turn(turn_time)
         return self.lastChar
 
-    def get_current_player(self):
-        return self.currentPlayer
+    def get_results(self):
+        winner = (self.currentPlayer - 1) % self.players + 1
+        avg_times = self.watch.average_turn_times
+        print('Победил игрок %s' % winner)
+        print('Среднее время ходов:')
+        for i in range(len(avg_times)):
+            print('  Игрок %s: %s секунд' % (i + 1, avg_times[i]))
+        return [winner, *avg_times]
+
+    def start_game(self):
+        while True:
+            player = self.currentPlayer + 1
+            try:
+                city = inputimeout(prompt='Игрок %s, введите город: ' % player, timeout=self.watch.turn_time)
+            except TimeoutOccurred:
+                print('Время вышло')
+                self.watch.turn_times.append(self.watch.turn_time)
+                break
+            self.check_turn(city)
+            print()
+        print()
+        self.get_results()
+
+
+if __name__ == '__main__':
+    players = int(input('Введите количество игроков: '))
+    os.system("pause")
+    game = Game(players)
+    game.start_game()
