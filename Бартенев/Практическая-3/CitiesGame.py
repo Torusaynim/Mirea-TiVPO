@@ -69,7 +69,7 @@ class Watch:
         for i in range(0, len(self.turn_times)):
             sum_time[i % self.players] += self.turn_times[i]
             n[i % self.players] += 1
-        for i in range(0, 2):
+        for i in range(0, self.players):
             if n[i] == 0:
                 avg_times.append(0)
             else:
@@ -118,23 +118,31 @@ class Game:
         winner = (self.currentPlayer - 1) % self.players + 1
         avg_times = self.watch.average_turn_times
         if __name__ == '__main__':
-            print('Победил игрок %s' % winner)
+            if self.watch.turn != 0:
+                print('Победил игрок %s' % winner)
+            else:
+                print('Ничья')
             print('Среднее время ходов:')
             for i in range(len(avg_times)):
                 print('  Игрок %s: %s секунд' % (i + 1, avg_times[i]))
         return [winner, *avg_times]
 
     def start_game(self):
+        timer = self.watch.turn_time
         while True:
             player = self.currentPlayer + 1
             try:
-                city = inputimeout(prompt='Игрок %s, введите город: ' % player, timeout=self.watch.turn_time)
+                answer_time = time.perf_counter()
+                city = inputimeout(prompt='Игрок %s, введите город: ' % player, timeout=timer)
+                answer_time = round(time.perf_counter() - answer_time, 1)
+                timer -= answer_time
             except TimeoutOccurred:
                 if __name__ == '__main__':
                     print('Время вышло')
                 self.watch.turn_times.append(self.watch.turn_time)
                 break
-            self.check_turn(city)
+            if self.check_turn(city) == 1:
+                timer = self.watch.turn_time
             if __name__ == '__main__':
                 print()
         if __name__ == '__main__':

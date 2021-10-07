@@ -44,7 +44,7 @@ def test_is_available(cities_dict):
     """
     assert cities_dict.select_city('Архангельск') == True
     cities_dict.select_city('Архангельск')
-    assert cities_dict.select_city('Архангельск') == False
+    assert cities_dict.select_city('архангельск') == False
     assert cities_dict.select_city('Москва') == True
     assert cities_dict.select_city('Стол') == False
     assert cities_dict.select_city('Стул') == False
@@ -55,7 +55,7 @@ def test_select_city(cities_dict):
 
     """
     assert cities_dict.select_city('Архангельск') == True
-    assert cities_dict.select_city('Архангельск') == False
+    assert cities_dict.select_city('архангельск') == False
     assert cities_dict.select_city('Москва') == True
     assert cities_dict.select_city('Санкт-Петербург') == True
     assert cities_dict.select_city('Москва') == False
@@ -148,7 +148,7 @@ def test_check_turn(game):
     assert game.check_turn('Нальчик') == 1
     assert game.check_turn('Кукла') == -2
     assert game.check_turn('Казань') == 1
-    assert game.check_turn('Нальчик') == 0
+    assert game.check_turn('нальчик') == 0
     assert game.check_turn('Москва') == -1
 
 
