@@ -90,16 +90,20 @@ class Game:
             if self.lastChar == '' or self.lastChar == city[0].upper():
                 if self.dict.is_available(city):
                     self.make_turn(city)
-                    print('Принято')
+                    if __name__ == '__main__':
+                        print('Принято')
                     return 1
                 else:
-                    print('Этот город уже называли')
+                    if __name__ == '__main__':
+                        print('Этот город уже называли')
                     return 0
             else:
-                print('Начинается на неправильную букву')
+                if __name__ == '__main__':
+                    print('Начинается на неправильную букву')
                 return -1
         else:
-            print('Это не город')
+            if __name__ == '__main__':
+                print('Это не город')
             return -2
 
     def make_turn(self, city):
@@ -113,10 +117,11 @@ class Game:
     def get_results(self):
         winner = (self.currentPlayer - 1) % self.players + 1
         avg_times = self.watch.average_turn_times
-        print('Победил игрок %s' % winner)
-        print('Среднее время ходов:')
-        for i in range(len(avg_times)):
-            print('  Игрок %s: %s секунд' % (i + 1, avg_times[i]))
+        if __name__ == '__main__':
+            print('Победил игрок %s' % winner)
+            print('Среднее время ходов:')
+            for i in range(len(avg_times)):
+                print('  Игрок %s: %s секунд' % (i + 1, avg_times[i]))
         return [winner, *avg_times]
 
     def start_game(self):
@@ -125,12 +130,15 @@ class Game:
             try:
                 city = inputimeout(prompt='Игрок %s, введите город: ' % player, timeout=self.watch.turn_time)
             except TimeoutOccurred:
-                print('Время вышло')
+                if __name__ == '__main__':
+                    print('Время вышло')
                 self.watch.turn_times.append(self.watch.turn_time)
                 break
             self.check_turn(city)
+            if __name__ == '__main__':
+                print()
+        if __name__ == '__main__':
             print()
-        print()
         self.get_results()
 
 
