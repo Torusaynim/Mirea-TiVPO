@@ -182,11 +182,5 @@ def test_get_results(game):
     game.make_turn('Анталия')
     time.sleep(0.2)
     game.make_turn('Якутск')
-    assert game.get_results() == [2, 0.1, 0.2]
-    time.sleep(0.3)
-    game.make_turn('Кардифф')
-    time.sleep(0.2)
-    game.make_turn('Фарго')
-    time.sleep(0.3)
-    game.make_turn('Очаков')
-    assert game.get_results() == [1, 0.2, 0.2]
+    game.kickedPlayers.append(1)
+    assert game.get_results(False) == [1, 0.1, 0.2]

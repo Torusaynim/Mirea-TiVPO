@@ -82,6 +82,7 @@ class Game:
         self.dict = CitiesDict()
         self.watch = Watch(players)
         self.players = players
+        self.kickedPlayers = []
         self.currentPlayer = 0
         self.lastChar = ''
 
@@ -114,14 +115,14 @@ class Game:
         self.watch.next_turn(turn_time)
         return self.lastChar
 
-    def get_results(self):
-        winner = (self.currentPlayer - 1) % self.players + 1
+    def get_results(self, toPrint):
+        winner = list(set(range(self.players)) - set(self.kickedPlayers))[0] + 1
         avg_times = self.watch.average_turn_times
-        if __name__ == '__main__':
-            if self.watch.turn != 0:
-                print('Победил игрок %s' % winner)
-            else:
+        if toPrint:
+            if self.watch.turn == 0:
                 print('Ничья')
+            else:
+                print('Победил игрок %s' % winner)
             print('Среднее время ходов:')
             for i in range(len(avg_times)):
                 print('  Игрок %s: %s секунд' % (i + 1, avg_times[i]))
@@ -129,25 +130,30 @@ class Game:
 
     def start_game(self):
         timer = self.watch.turn_time
-        while True:
-            player = self.currentPlayer + 1
+        while len(self.kickedPlayers) != (self.players - 1):
+            if self.currentPlayer in self.kickedPlayers:
+                self.watch.turn_times.append(self.get_results(False)[self.currentPlayer + 1])
+                self.currentPlayer = (self.currentPlayer + 1) % self.players
+                continue
             try:
                 answer_time = time.perf_counter()
-                city = inputimeout(prompt='Игрок %s, введите город: ' % player, timeout=timer)
+                city = inputimeout(prompt='Игрок %s, введите город: ' % (self.currentPlayer + 1), timeout=timer)
                 answer_time = round(time.perf_counter() - answer_time, 1)
                 timer -= answer_time
             except TimeoutOccurred:
                 if __name__ == '__main__':
                     print('Время вышло')
                 self.watch.turn_times.append(self.watch.turn_time)
-                break
+                self.kickedPlayers.append(self.currentPlayer)
+                self.currentPlayer = (self.currentPlayer + 1) % self.players
+                print('Игрок %s выбыл' % (self.currentPlayer + 1))
+                print()
+                continue
             if self.check_turn(city) == 1:
                 timer = self.watch.turn_time
             if __name__ == '__main__':
                 print()
-        if __name__ == '__main__':
-            print()
-        self.get_results()
+        self.get_results(True)
 
 
 if __name__ == '__main__':
