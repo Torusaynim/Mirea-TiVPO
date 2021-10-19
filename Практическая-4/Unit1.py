@@ -1,4 +1,12 @@
-﻿def TestInput():
+def CleanNotepad():
+    #Runs the "notepad" tested application.
+    TestedApps.notepad.Run()
+    Aliases.notepad_.wndNotepad.Scintilla.Keys("^a^[ReleaseLast][BS]")
+    Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
+    TestedApps.notepad.Close()
+    
+    
+def TestInput():
     #Runs the "notepad" tested application.
     TestedApps.notepad.Run()
     #Enters 'Hello world' in the 'Scintilla' object.
@@ -8,10 +16,11 @@
     #Closing the "notepad" tested application.
     TestedApps.notepad.Close()
     #Getting whole text of file
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="Hello world"):
       Log.Message("Test passed")
+    CleanNotepad()
     
 
 def TestAutoFill():
@@ -21,9 +30,10 @@ def TestAutoFill():
     Aliases.notepad_.wndNotepad.MainMenu.Click("Файл|Сохранить")
     TestedApps.notepad.Close()
     
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     if (s=="dialog"):
       Log.Message("Test passed")
+    CleanNotepad()
 
 def TestTabsAndFileCreation():
     TestedApps.notepad.Run()
@@ -39,12 +49,13 @@ def TestTabsAndFileCreation():
     
     TestedApps.notepad.Close()
     
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="world"):
       Log.Message("Test passed")
+    CleanNotepad()
       
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\новый 1.txt", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="Hello"):
       Log.Message("Test passed")
@@ -60,10 +71,11 @@ def TestReplace():
     Aliases.notepad_.dlg_2.Close()
     Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     TestedApps.notepad.Close()
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="Hello"):
       Log.Message("Test passed")
+    CleanNotepad()
 
 def TestRecord():
     TestedApps.notepad.Run()
@@ -73,10 +85,11 @@ def TestRecord():
     Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(42021, False)
     Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     TestedApps.notepad.Close()
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="Hello world\r\nHello world\r\n"):
       Log.Message("Test passed")
+    CleanNotepad()
       
 
 def TestAltFunction():
@@ -86,10 +99,11 @@ def TestAltFunction():
     Aliases.notepad_.wndNotepad.Scintilla.Keys("Hello world")
     Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     TestedApps.notepad.Close()
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     
     if (s=="Hello world\r\nHello world"):
-          Log.Message("Test passed")
+        Log.Message("Test passed")
+    CleanNotepad()
           
 
 
@@ -101,6 +115,7 @@ def TestBigData():
     Aliases.notepad_.wndNotepad.Scintilla.Keys(long)
     Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     TestedApps.notepad.Close()
-    s = aqFile.ReadWholeTextFile("D:\\TestComplete 15 Projects\\TestProject1\\new.html", aqFile.ctANSI)
+    s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
     if (s==long):
       Log.Message("Test passed")
+    CleanNotepad()
