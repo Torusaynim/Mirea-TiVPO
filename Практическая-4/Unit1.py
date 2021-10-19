@@ -11,8 +11,7 @@ def TestInput():
     TestedApps.notepad.Run()
     #Enters 'Hello world' in the 'Scintilla' object.
     Aliases.notepad_.wndNotepad.Scintilla.Keys("Hello world")
-    Aliases.notepad_.wndNotepad.Click(37, 37)
-    Aliases.notepad_.wnd32768.Click(122, 145)
+    Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     #Closing the "notepad" tested application.
     TestedApps.notepad.Close()
     #Getting whole text of file
@@ -27,7 +26,7 @@ def TestAutoFill():
     TestedApps.notepad.Run()
     Aliases.notepad_.wndNotepad.Scintilla.Keys("di[Tab]")
     #Moves the mouse cursor to the menu item specified and then simulates a single click.
-    Aliases.notepad_.wndNotepad.MainMenu.Click("Файл|Сохранить")
+    Aliases.notepad_.wndNotepad.ReBarWindow32.toolbar.ClickItem(41006, False)
     TestedApps.notepad.Close()
     
     s = aqFile.ReadWholeTextFile("D:\\PATH_TO_FILE\\FILE_NAME.TXT", aqFile.ctANSI)
