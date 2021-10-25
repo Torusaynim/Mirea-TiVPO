@@ -11,8 +11,6 @@
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=torusaynim&repo=resonance-cascade&theme=graywhite)](https://github.com/Torusaynim/Resonance-Cascade)
 
-Готовый отчёт находится по адресу `assets/docs` под именем **blank_PR1_Otchet** в форматах **.docx** и **.pdf**
-
 ## Практическая работа №2
 
 **Порядок передачи кода с документацией:** Шахгусейнов ➔ Перлов ➔ Кулагин ➔ Бартенев ➔ Шахгусейнов
