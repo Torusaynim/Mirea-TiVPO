@@ -1,0 +1,45 @@
+﻿using SpecExplorer3.Sample;
+
+config Main 
+{
+    action abstract static void Accumulator.Add(int x);
+    action abstract static int Accumulator.ReadAndReset();
+    action abstract static void Accumulator.Multy(int x);
+
+    switch StepBound = 128;
+    switch PathDepthBound = 128;
+    switch TestClassBase = "vs";
+    switch GeneratedTestPath = "..\\SpecExplorer3.TestSuite";
+    switch GeneratedTestNamespace = "SpecExplorer3.TestSuite";
+    switch TestEnabled = false;
+    switch ForExploration = false;
+}
+
+config ParameterCombination: Main 
+{
+    action abstract static void Accumulator.Add(int x)
+        where x in {0..2};
+    action abstract static void Accumulator.Multy(int x)
+        where x in {1..2};
+}
+
+machine AccumulatorModelProgram() : Main where ForExploration = true
+{
+    construct model program from ParameterCombination 
+    where scope = "SpecExplorer3.AccumulatorModelProgram" //The value of the namespace switch can be a .Net namespace or a fully-qualified class name.
+}
+
+machine DoubleAddScenario() : Main where ForExploration = true
+{
+    (Add(_); Add; Multy; ReadAndReset)*
+}
+
+machine SlicedAccumulatorModelProgram() : Main where ForExploration = true
+{
+    DoubleAddScenario || AccumulatorModelProgram // (synchronized) parallel composition
+}
+
+machine AccumulatorTestSuite() : Main where ForExploration = true, TestEnabled = true
+{
+    construct test cases where strategy = "ShortTests" for SlicedAccumulatorModelProgram()
+}

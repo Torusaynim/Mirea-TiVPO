@@ -1,0 +1,4 @@
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.Sample\bin\Debug\SpecExplorer3.Sample.dll
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.Sample\bin\Debug\SpecExplorer3.Sample.pdb
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.Sample\obj\Debug\SpecExplorer3.Sample.dll
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.Sample\obj\Debug\SpecExplorer3.Sample.pdb

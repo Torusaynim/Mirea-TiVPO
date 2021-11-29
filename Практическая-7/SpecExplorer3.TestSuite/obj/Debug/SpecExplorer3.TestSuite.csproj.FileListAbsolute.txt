@@ -1,0 +1,7 @@
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\bin\Debug\SpecExplorer3.TestSuite.dll
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\bin\Debug\SpecExplorer3.TestSuite.pdb
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\bin\Debug\SpecExplorer3.Sample.dll
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\bin\Debug\SpecExplorer3.Sample.pdb
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\obj\Debug\SpecExplorer3.TestSuite.csprojResolveAssemblyReference.cache
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\obj\Debug\SpecExplorer3.TestSuite.dll
+c:\users\comp\documents\visual studio 2012\Projects\SpecExplorer3\SpecExplorer3.TestSuite\obj\Debug\SpecExplorer3.TestSuite.pdb
